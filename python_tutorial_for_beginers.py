@@ -265,3 +265,64 @@ class Dog(Animal):
         return "{} is the name {} is the height {} is the sound {} is the owner".format(
             self.__name , self.__height,self.__sound,self.__owner
         )
+
+
+#Machine Learning
+#ML imports
+import numpy as np #for matrices
+import pandas as pd #for data analysis
+from mpl_toolkits.mplot3d import Axes3D
+from matplotlib import cm
+import matplotlib.pyplot as plt #for graphs I guess!
+
+#common definitions
+
+def plotData(x, y):
+    
+    fig, ax = plt.subplots() # create empty figure
+    ax.plot(x,y,'rx',markersize=10)
+    ax.set_xlabel("Population of City in 10,000s")
+    ax.set_ylabel("Profit in $10,000s")
+
+    return fig
+#For scalling, copied to get intuition about how to use numpy library, thats all
+def featureNormalize(X):
+    return np.divide((X - np.mean(X,axis=0)),np.std(X,axis=0))
+
+#Plotting data
+print('Plotting Data ...\n')
+#read/load data from a file, note the directory
+data = pd.read_csv("ex1/ex1data1.txt",names=["X","y"])  
+#Create two arrays x and y for plotting
+x = np.array(data.X)[:,None] # population in 10,0000
+y = np.array(data.y) # profit for a food truck
+m = len(y) 
+#Call plotData function
+fig = plotData(x,y)
+fig.show()
+
+#https://www.sharpsightlabs.com/blog/numpy-sum/
+#for sum function
+#np_array_colsum.ndim, adding ndim after the numoy-array returns the dimension of your array
+
+
+#J = (np.sum((np.dot(X,theta) - y)**2))/(2*m) -->Regular cost function
+
+#For gradient Descent function:
+    # xdottheta = (np.dot(X,theta)-y) --> multipling two matrices, easy,
+    # print (xdottheta)
+    # print (xdottheta[:,None]) -->I guess this way, you are TRANSPOSING it to later multilpy with X
+    # print(np.sum(xdottheta[:,None]*X,axis=0)) --> axis = 0, to sum by rows, axis=1, to sum by columns
+    # print("thats were axis = 0")
+
+#adding another line to an existing plot (legacy):
+    # Plot the linear fit:
+    # plt.plot(x,y,'rx',x,np.dot(X,theta),'b-')
+    # plt.legend(['Training Data','Linear Regression'])
+    # plt.show()
+#Creates an array of numbers from -10 to 10, adding them piece by piece, counted 100
+# theta0_vals = np.linspace(-10, 10, 100)
+# print (theta0_vals)
+
+#To add a column of ones
+#X = np.hstack((np.ones_like(s),X))
